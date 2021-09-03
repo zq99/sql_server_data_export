@@ -69,6 +69,7 @@ def get_table_list():
 def export_data(tables, folder):
     if not tables:
         log.info("No tables found to export!")
+        return False
 
     thread_list = []
     for table in tables:
@@ -77,6 +78,7 @@ def export_data(tables, folder):
         th.start()
     for th in thread_list:
         th.join()
+    return True
 
 
 def __get_size(filename):
@@ -122,11 +124,11 @@ def process():
             if not tables:
                 log.info("No tables available to export")
             else:
-                export_data(tables, folder)
-                if check_files_exist(tables, folder):
-                    log.info("process complete!")
-                else:
-                    log.warning("not all data was exported!")
+                if export_data(tables, folder):
+                    if check_files_exist(tables, folder):
+                        log.info("process complete!")
+                    else:
+                        log.warning("not all data was exported!")
 
 
 if __name__ == '__main__':
