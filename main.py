@@ -7,8 +7,8 @@ import os.path
 # Fill these parameters
 
 credentials = {
-    "server": "",
-    "database": ""
+    "SERVER": "",
+    "DATABASE": ""
 }
 
 log = logging.getLogger("Database")
@@ -42,12 +42,12 @@ def get_file_name(folder, file):
 
 
 def is_credentials_filled():
-    return len(credentials['server']) > 0 and len(credentials['database']) > 0
+    return len(credentials['SERVER']) > 0 and len(credentials['DATABASE']) > 0
 
 
 def get_connection():
-    c = 'Driver={SQL Server};Server=' + credentials['server'] + ';Database=' + credentials[
-        'database'] + ';Trusted_Connection=yes;'
+    c = 'Driver={SQL Server};Server=' + credentials['SERVER'] + ';Database=' + credentials[
+        'DATABASE'] + ';Trusted_Connection=yes;'
     try:
         conn = py.connect(c)
         return conn
@@ -105,7 +105,7 @@ def check_files_exist(table_list, folder):
 
 
 def create_folder():
-    folder = 'db_' + credentials['database']
+    folder = 'db_' + credentials['DATABASE']
     try:
         os.mkdir(folder)
         return folder
